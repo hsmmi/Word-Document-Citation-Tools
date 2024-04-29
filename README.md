@@ -1,6 +1,6 @@
 # Word Document Citation Tools
 
-This repository contains Visual Basic for Applications (VBA) scripts designed to manage citations in Microsoft Word documents. The scripts allow you to automatically link in-text citations to their corresponding references in the bibliography and to remove these links and bookmarks when needed. These scripts are compatible with the IEEE citation format.
+This repository contains Visual Basic for Applications (VBA) scripts designed to manage citations in Microsoft Word documents. The scripts allow you to automatically link in-text citations to their corresponding references in the bibliography and to remove these links and bookmarks when needed. These scripts are compatible with the IEEE citation format and are particularly useful for macOS users, where Visual Basic Regular Expressions are not supported.
 
 ## Scripts Included
 
@@ -18,7 +18,7 @@ Before you can use these scripts, you must enable Developer mode in Microsoft Wo
 
 ### LinkCitationsToReferences
 
-This macro creates bookmarks for each reference in the bibliography section that starts with `[` and ends with `]`, and then links in-text citations that match these reference numbers to the bookmarks. This functionality is specifically tailored for documents using the IEEE citation format.
+This macro creates bookmarks for each reference in the bibliography section that starts with `[` and ends with `]`, and then links in-text citations that match these reference numbers to the bookmarks. This functionality is specifically tailored for documents using the IEEE citation format and is optimized for use on macOS, which lacks support for Visual Basic Regular Expressions.
 
 #### Steps to Run:
 
@@ -30,7 +30,7 @@ This macro creates bookmarks for each reference in the bibliography section that
 
 ### RemoveCitationHyperlinksAndBookmarks
 
-This macro removes all hyperlinks and bookmarks that have been added by the `LinkCitationsToReferences` macro or that conform to the naming pattern starting with "Ref_". It's useful for cleanup before reapplying links in updated documents.
+This macro removes all hyperlinks and bookmarks that have been added by the `LinkCitationsToReferences` macro or that conform to the naming pattern starting with "Ref_". It's useful for cleanup before reapplying links in updated documents, particularly on macOS where regular expressions in VBA are not available.
 
 #### Steps to Run:
 
