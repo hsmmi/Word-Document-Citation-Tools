@@ -3,17 +3,22 @@ Sub LinkCitationsToReferences()
     Dim doc As Document
     Dim refNum As String
     Dim bmName As String
-    Dim citation As range
+    Dim citation As Range
     Dim refPattern As String
+    Dim startPos As Integer
+    Dim endPos As Integer
 
     Set doc = ActiveDocument
 
+    ' Remove existing citation hyperlinks and bookmarks
+    RemoveCitationHyperlinksAndBookmarks
+
     ' Create bookmarks for each reference in the bibliography section
     For Each refItem In doc.Paragraphs
-        If Left(refItem.range.Text, 1) = "[" And InStr(refItem.range.Text, "]") > 0 Then
-            refNum = Mid(refItem.range.Text, 2, InStr(refItem.range.Text, "]") - 2)
+        If Left(refItem.Range.Text, 1) = "[" And InStr(refItem.Range.Text, "]") > 0 Then
+            refNum = Mid(refItem.Range.Text, 2, InStr(refItem.Range.Text, "]") - 2)
             bmName = "Ref_" & refNum
-            doc.Bookmarks.Add Name:=bmName, range:=refItem.range
+            doc.Bookmarks.Add Name:=bmName, Range:=refItem.Range
         End If
     Next refItem
 
@@ -27,13 +32,18 @@ Sub LinkCitationsToReferences()
                 refNum = Mid(citation.Text, 2, Len(citation.Text) - 2)
                 bmName = "Ref_" & refNum
                 If doc.Bookmarks.Exists(bmName) Then
-                    doc.Hyperlinks.Add Anchor:=citation, Address:="", SubAddress:=bmName
+                    startPos = citation.Start + 1
+                    endPos = citation.End - 1
+                    doc.Hyperlinks.Add Anchor:=doc.Range(startPos, endPos), Address:="", SubAddress:=bmName
                 End If
                 citation.Collapse wdCollapseEnd
             Wend
         End With
     Next citation
 End Sub
+
+
+
 Sub RemoveCitationHyperlinksAndBookmarks()
     Dim doc As Document
     Dim i As Integer
@@ -56,5 +66,4 @@ Sub RemoveCitationHyperlinksAndBookmarks()
         End If
     Next i
 End Sub
-
 
